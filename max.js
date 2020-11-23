@@ -1,8 +1,11 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const bot = new Discord.Client();
+const secret = fs.readFileSync("secret.txt","utf8");
+
 var isTalking = false;
 var isAlreadyTalking = false;
+
 //var mode = "DHRUV";//DHRUV ARIA JOJO
 
 bot.on('ready', () => {
@@ -181,11 +184,11 @@ bot.on('message', function(message) {
 })
 
 function update() {
-		let angela = bot.users.get('373579695611969557');
-		if(bot.guilds.get('638173100567166976').members.get(angela.id).nickname == null) {
-			bot.guilds.get('638173100567166976').members.get(bot.user.id).setNickname(angela.username);
+		let angela = bot.users.fetch('373579695611969557');
+		if(bot.guilds.fetch('638173100567166976').members.cache.get(angela.id).nickname == null) {
+			bot.guilds.fetch('638173100567166976').members.cache.get(bot.user.id).setNickname(angela.username);
 		} else {
-			bot.guilds.get('638173100567166976').members.get(bot.user.id).setNickname(bot.guilds.get('638173100567166976').members.get(angela.id).nickname);
+			bot.guilds.fetch('638173100567166976').members.cache.get(bot.user.id).setNickname(bot.guilds.get('638173100567166976').members.get(angela.id).nickname);
 		}
 
 	bot.fetchUser('373579695611969557').then(angela => {
@@ -234,4 +237,4 @@ function retrieveChain(text) {
 }
 
 
-bot.login('NjU3NzcwODkxMTEwOTA3OTE0.Xf2C-Q.DJ2CM2ccMjo02Pjk5N21u7SMG0g');
+bot.login(secret);
